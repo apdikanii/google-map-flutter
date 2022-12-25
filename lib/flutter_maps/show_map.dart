@@ -14,6 +14,8 @@ class ShowsimpleMap extends StatefulWidget {
 
 class _ShowsimpleMapState extends State<ShowsimpleMap> {
   late GoogleMapController mapController;
+  Map<String, Marker> _markers = {};
+
   final LatLng _center = const LatLng(2.080665, 45.365411);
   
   void _onMapCreated(GoogleMapController controller){
@@ -30,6 +32,7 @@ class _ShowsimpleMapState extends State<ShowsimpleMap> {
           _onMapCreated(controller);
           addMarker("test", _center);
         },
+        markers: _markers.values.toSet(),
         initialCameraPosition: CameraPosition(target: _center, zoom: 11.0),
         
         ),
@@ -40,7 +43,7 @@ class _ShowsimpleMapState extends State<ShowsimpleMap> {
     var markerIcon = await BitmapDescriptor.fromAssetImage(
       const ImageConfiguration(), 
       "assets/images/kangroo.png",);
-      var marker = Marker(markerId: markerId(id),
+      var marker = Marker(markerId: MarkerId(id),
       position: location,
       infoWindow: const InfoWindow(
         title: 'Title of place',
